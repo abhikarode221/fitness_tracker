@@ -7,14 +7,21 @@ export const Login = ({ setAuth }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // ✅ API URL for local + production
+  const API_URL =
+    import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
-        email,
-        password
-      });
+      const res = await axios.post(
+        `${API_URL}/api/auth/login`,
+        {
+          email,
+          password
+        }
+      );
 
       // Save token
       localStorage.setItem('kinetic_token', res.data.token);
@@ -32,7 +39,7 @@ export const Login = ({ setAuth }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black p-6">
       <div className="w-full max-w-md space-y-8 bg-zinc-900/40 border border-white/5 p-10 rounded-[3rem] backdrop-blur-3xl">
-        
+
         {/* HEADER */}
         <div className="text-center">
           <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter">
@@ -45,7 +52,7 @@ export const Login = ({ setAuth }) => {
 
         {/* FORM */}
         <form onSubmit={handleLogin} className="space-y-6">
-          
+
           <input
             type="email"
             placeholder="EMAIL"
@@ -72,7 +79,7 @@ export const Login = ({ setAuth }) => {
           </button>
         </form>
 
-        {/* 🔗 REGISTER LINK */}
+        {/* REGISTER LINK */}
         <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest text-center pt-4">
           New Operator?{" "}
           <Link
