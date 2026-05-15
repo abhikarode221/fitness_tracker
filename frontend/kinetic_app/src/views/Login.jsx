@@ -1,27 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axiosConfig'; // ✅ NEW: centralized axios instance
 
 export const Login = ({ setAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  // ✅ API URL for local + production
-  const API_URL =
-    import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        `${API_URL}/api/auth/login`,
-        {
-          email,
-          password
-        }
-      );
+      // ✅ CLEAN API CALL (no localhost, no manual URL)
+      const res = await api.post('/api/auth/login', {
+        email,
+        password
+      });
 
       // Save token
       localStorage.setItem('kinetic_token', res.data.token);

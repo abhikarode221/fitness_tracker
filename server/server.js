@@ -9,7 +9,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5173', // Local development
-    'https://your-kinetic-frontend.vercel.app' // Live frontend URL
+    'https://fitnesstracker-delta-two.vercel.app' // Live frontend URL
   ],
   credentials: true
 }));
