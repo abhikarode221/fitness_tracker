@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Local Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Production Builds
+dist/
+build/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
