@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import { Weight, Ruler, Target, Flame, Save, CheckCircle } from 'lucide-react';
 
 export const Settings = () => {
@@ -30,8 +30,8 @@ export const Settings = () => {
       try {
         const token = localStorage.getItem('kinetic_token');
 
-        const res = await axios.get(
-          'http://localhost:5000/api/auth/me',
+        const res = await api.get(
+          '/api/auth/me',
           {
             headers: {
               'x-auth-token': token
@@ -58,8 +58,8 @@ export const Settings = () => {
     try {
       const token = localStorage.getItem('kinetic_token');
 
-      await axios.put(
-        'http://localhost:5000/api/auth/update-profile',
+      await api.put(
+        '/api/auth/update-profile',
         profile,
         {
           headers: {
@@ -81,13 +81,13 @@ export const Settings = () => {
   // UI
   // =========================
   return (
-    <div className="max-w-4xl mx-auto space-y-12 pb-20">
+    <div className="max-w-4xl mx-auto space-y-8 md:space-y-12 pb-20 px-2 sm:px-4">
 
       {/* HEADER */}
-      <header className="flex justify-between items-center">
+      <header className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center px-1">
 
         <div>
-          <h1 className="text-5xl font-black text-white tracking-tighter uppercase italic">
+          <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tighter uppercase italic leading-none">
             Profile Settings
           </h1>
 
@@ -97,7 +97,7 @@ export const Settings = () => {
         </div>
 
         {status === "SUCCESS" && (
-          <div className="flex items-center gap-2 text-cyan-400 font-mono text-[10px] uppercase tracking-widest animate-pulse">
+          <div className="flex items-center gap-2 text-cyan-400 font-mono text-[10px] uppercase tracking-widest animate-pulse self-start sm:self-auto">
             <CheckCircle size={16} /> Sync_Complete
           </div>
         )}
@@ -105,10 +105,10 @@ export const Settings = () => {
       </header>
 
       {/* CARD */}
-      <div className="bg-zinc-900/40 border border-white/5 p-12 rounded-[3rem] backdrop-blur-3xl space-y-10">
+      <div className="bg-zinc-900/40 border border-white/5 p-6 sm:p-12 rounded-3xl sm:rounded-[3rem] backdrop-blur-3xl space-y-8 sm:space-y-10">
 
         {/* BASIC METRICS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
 
           <SettingInput
             label="Weight (KG)"
@@ -141,13 +141,13 @@ export const Settings = () => {
         </div>
 
         {/* MACROS */}
-        <div className="pt-10 border-t border-white/5">
+        <div className="pt-8 sm:pt-10 border-t border-white/5">
 
-          <h3 className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.4em] mb-8 italic">
+          <h3 className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
             Macro-Nutrient Targets
           </h3>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
 
             <MacroInput
               label="Protein (G)"
@@ -186,15 +186,15 @@ export const Settings = () => {
         </div>
 
         {/* FOOTER */}
-        <div className="pt-10 flex flex-col items-center">
+        <div className="pt-8 sm:pt-10 flex flex-col items-center">
 
-          <p className="text-zinc-700 font-mono text-[9px] uppercase tracking-widest italic mb-6">
+          <p className="text-zinc-700 font-mono text-[9px] uppercase tracking-widest italic mb-6 text-center">
             *Bio-metric data is encrypted and synced to your secure Kinetic profile.
           </p>
 
           <button
             onClick={handleUpdate}
-            className="bg-white text-black font-black px-12 py-4 rounded-2xl uppercase tracking-widest text-xs hover:bg-cyan-400 transition-all flex items-center gap-2"
+            className="w-full sm:w-auto bg-white text-black font-black px-12 py-4 rounded-2xl uppercase tracking-widest text-xs hover:bg-cyan-400 transition-all flex items-center justify-center gap-2"
           >
             <Save size={16} /> Authorize Update
           </button>
@@ -210,7 +210,7 @@ export const Settings = () => {
 // INPUT COMPONENTS
 // =========================
 const SettingInput = ({ label, icon, value, onChange }) => (
-  <div className="space-y-3">
+  <div className="space-y-2">
 
     <label className="flex items-center gap-2 text-[10px] font-bold text-cyan-400 uppercase tracking-widest ml-1">
       {icon} {label}
@@ -220,14 +220,14 @@ const SettingInput = ({ label, icon, value, onChange }) => (
       type="number"
       value={value || ''}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-black border border-white/10 p-5 rounded-xl text-white font-bold text-xl outline-none focus:border-cyan-400/40 transition-all"
+      className="w-full bg-black border border-white/10 p-4 sm:p-5 rounded-xl text-white font-bold text-lg sm:text-xl outline-none focus:border-cyan-400/40 transition-all"
     />
 
   </div>
 );
 
 const MacroInput = ({ label, value, onChange }) => (
-  <div className="space-y-3">
+  <div className="space-y-2">
 
     <label className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest ml-1">
       {label}
@@ -237,7 +237,7 @@ const MacroInput = ({ label, value, onChange }) => (
       type="number"
       value={value || ''}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full h-16 bg-black border border-white/10 rounded-2xl text-center text-white font-bold outline-none focus:border-cyan-400/40 transition-all"
+      className="w-full h-12 sm:h-16 bg-black border border-white/10 rounded-2xl text-center text-white font-bold outline-none focus:border-cyan-400/40 transition-all"
     />
 
   </div>

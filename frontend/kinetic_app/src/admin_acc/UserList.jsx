@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import EditUserPopup from './EditUserPopup';
 
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
 
 const DEPARTMENTS = ['Engineering','Marketing','Sales','HR','Finance','Operations','Design','Support','Legal','Product'];
 const ROLES = ['Admin','Manager','Developer','Designer','Analyst','Executive','Intern','Senior Developer','Lead','Coordinator'];

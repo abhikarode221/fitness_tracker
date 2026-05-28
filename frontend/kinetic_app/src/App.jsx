@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Menu, Dumbbell } from 'lucide-react';
 
 import ProtectedRoute from './hooks/ProtectedRoute';
 
@@ -16,6 +17,7 @@ import { Nutrition } from './views/Nutrition';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("kinetic_token");
@@ -26,9 +28,31 @@ function App() {
     <Router>
       <div className="flex min-h-screen bg-background text-zinc-100">
 
-        {isAuthenticated && <Sidebar />}
+        {/* Desktop and Mobile Sidebar Drawer */}
+        {isAuthenticated && (
+          <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+        )}
 
-        <main className={`${isAuthenticated ? "ml-20 md:ml-64" : ""} p-8 w-full`}>
+        {/* Mobile Navigation Header */}
+        {isAuthenticated && (
+          <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-zinc-950 border-b border-white/5 flex items-center justify-between px-6 z-40">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-cyan-400 rounded-lg flex items-center justify-center text-black">
+                <Dumbbell size={20} strokeWidth={3} />
+              </div>
+              <span className="text-xl font-black tracking-tighter italic text-white uppercase">Kinetic</span>
+            </div>
+            <button 
+              onClick={() => setSidebarOpen(true)}
+              className="p-2 text-zinc-400 hover:text-white transition-colors"
+              title="Open Navigation"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
+        )}
+
+        <main className={`${isAuthenticated ? "ml-0 md:ml-64 pt-24 md:pt-8" : ""} p-4 md:p-8 w-full`}>
           <Routes>
 
             {/* Public */}

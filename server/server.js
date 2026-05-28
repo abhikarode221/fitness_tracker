@@ -5,13 +5,15 @@ require('dotenv').config();
 
 const app = express();
 
-// ✅ 1. CORS CONFIGURATION
+// ✅ 1. UPDATED CORS CONFIGURATION
 app.use(cors({
   origin: [
-    'http://localhost:5173', // Local development
-    'https://fitnesstracker-delta-two.vercel.app' // Live frontend URL
+    'http://localhost:5173', // Local React/Vite development server
+    'https://fitnesstracker-delta-two.vercel.app' // Live Vercel frontend
   ],
-  credentials: true
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed REST methods
+  allowedHeaders: ['Content-Type', 'x-auth-token'], // Allow JWT auth headers
+  credentials: true // Allow cookies/auth headers
 }));
 
 // ✅ 2. MIDDLEWARE

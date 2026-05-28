@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await api.post('/api/auth/register', formData);
       alert("SYSTEM UPDATE: PROFILE CREATED. INITIALIZING LOGIN.");
       navigate('/login');
     } catch (err) {
@@ -22,13 +22,13 @@ export const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-6">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4 sm:p-6">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }} 
         animate={{ opacity: 1, scale: 1 }}
-        className="glass-card p-10 w-full max-w-2xl border border-white/5 bg-surface rounded-3xl"
+        className="glass-card p-6 sm:p-10 w-full max-w-2xl border border-white/5 bg-surface rounded-3xl mx-2 shadow-2xl"
       >
-        <h2 className="text-3xl font-black uppercase italic tracking-tighter mb-8 text-white">Create Profile</h2>
+        <h2 className="text-2xl sm:text-3xl font-black uppercase italic tracking-tighter mb-6 sm:mb-8 text-white leading-none">Create Profile</h2>
         
         <form onSubmit={handleRegister} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
@@ -58,7 +58,7 @@ export const Register = () => {
             />
           </div>
 
-          <div className="p-4 bg-white/5 rounded-2xl border border-white/5 md:col-span-2 grid grid-cols-3 gap-4">
+          <div className="p-4 bg-white/5 rounded-2xl border border-white/5 md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block font-mono text-[8px] text-accent uppercase mb-2">Height (CM)</label>
               <input 

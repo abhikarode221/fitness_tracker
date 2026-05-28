@@ -31,12 +31,12 @@ export const Login = ({ setAuth }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black p-6">
-      <div className="w-full max-w-md space-y-8 bg-zinc-900/40 border border-white/5 p-10 rounded-[3rem] backdrop-blur-3xl">
+    <div className="min-h-screen flex items-center justify-center bg-black p-4 sm:p-6">
+      <div className="w-full max-w-md space-y-8 bg-zinc-900/40 border border-white/5 p-6 sm:p-10 rounded-3xl sm:rounded-[3rem] backdrop-blur-3xl mx-2 shadow-2xl">
 
         {/* HEADER */}
         <div className="text-center">
-          <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter">
+          <h2 className="text-3xl sm:text-4xl font-black text-white uppercase italic tracking-tighter">
             Access System
           </h2>
           <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-[0.4em] mt-2">

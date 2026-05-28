@@ -25,9 +25,9 @@ export const Library = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto space-y-10 pb-20 relative">
-      <header>
-        <h1 className="text-5xl font-black text-white tracking-tighter uppercase italic">Kinetic Index</h1>
+    <div className="max-w-7xl mx-auto space-y-8 md:space-y-10 pb-20 relative px-2 sm:px-4">
+      <header className="px-1">
+        <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tighter uppercase italic leading-none">Kinetic Index</h1>
         <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.4em] mt-2">Comprehensive Movement Database</p>
       </header>
 
@@ -43,12 +43,12 @@ export const Library = () => {
           />
         </div>
         
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap justify-start w-full md:w-auto">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-6 py-2 rounded-xl text-[10px] font-bold tracking-widest transition-all ${
+              className={`px-5 sm:px-6 py-2 rounded-xl text-[10px] font-bold tracking-widest transition-all ${
                 filter === cat ? 'bg-cyan-400 text-black' : 'bg-zinc-900 text-zinc-500 border border-white/5 hover:border-zinc-700'
               }`}
             >
@@ -59,13 +59,13 @@ export const Library = () => {
       </div>
 
       {/* EXERCISE GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filteredData.map((ex) => (
           <motion.div 
             layoutId={`card-${ex.id}`}
             onClick={() => setSelectedExercise(ex)} // ✅ Trigger Popup
             key={ex.id}
-            className="bg-zinc-900/40 border border-white/5 p-8 rounded-[2rem] hover:bg-zinc-900/60 transition-all group relative cursor-pointer"
+            className="bg-zinc-900/40 border border-white/5 p-6 sm:p-8 rounded-3xl sm:rounded-[2rem] hover:bg-zinc-900/60 transition-all group relative cursor-pointer"
           >
             <div className="flex justify-between items-start mb-6">
               <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{ex.category}</span>
@@ -76,10 +76,11 @@ export const Library = () => {
               </span>
             </div>
 
-            <h3 className="text-2xl font-bold text-white mb-2">{ex.name}</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 leading-tight">{ex.name}</h3>
             <p className="text-zinc-500 text-xs leading-relaxed line-clamp-2">{ex.desc}</p>
             
-            <div className="mt-6 flex items-center gap-2 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* Actions: Always visible on touch-screens (opacity-100), hidden by default on desktop (md:opacity-0) and shows on group hover (md:group-hover:opacity-100) */}
+            <div className="mt-6 flex items-center gap-2 text-cyan-400 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
               <span className="text-[10px] font-bold uppercase tracking-widest">Analyze Details</span>
               <Info size={14} />
             </div>
@@ -106,41 +107,42 @@ export const Library = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative bg-zinc-950 border border-white/10 w-full max-w-2xl rounded-[3rem] overflow-hidden shadow-2xl"
+              className="relative bg-zinc-950 border border-white/10 w-full max-w-2xl rounded-3xl sm:rounded-[3rem] overflow-hidden shadow-2xl mx-2 z-10"
             >
               {/* Top Banner */}
-              <div className="h-32 bg-gradient-to-br from-cyan-400/20 to-transparent p-10 flex justify-between items-start">
+              <div className="h-auto sm:h-32 bg-gradient-to-br from-cyan-400/20 to-transparent p-6 sm:p-10 flex justify-between items-start gap-4">
                 <div>
                    <span className="text-cyan-400 font-mono text-[10px] uppercase tracking-[0.4em]">Movement_Analysis</span>
-                   <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter mt-1">{selectedExercise.name}</h2>
+                   <h2 className="text-xl sm:text-3xl font-black text-white uppercase italic tracking-tighter mt-1 leading-none">{selectedExercise.name}</h2>
                 </div>
                 <button 
                   onClick={() => setSelectedExercise(null)}
-                  className="p-3 bg-black/40 text-zinc-500 hover:text-white rounded-2xl transition-all"
+                  className="p-2 sm:p-3 bg-black/40 text-zinc-500 hover:text-white rounded-2xl transition-all shrink-0"
+                  title="Close Briefing"
                 >
                   <X size={20} />
                 </button>
               </div>
 
-              <div className="p-10 space-y-8">
+              <div className="p-6 sm:p-10 space-y-6 sm:space-y-8">
                 {/* Stats Row */}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                   <DetailBox icon={<Target className="text-cyan-400" size={16} />} label="Focus Area" value={selectedExercise.area} />
                   <DetailBox icon={<Dumbbell className="text-cyan-400" size={16} />} label="Category" value={selectedExercise.category} />
                   <DetailBox icon={<TrendingUp className="text-cyan-400" size={16} />} label="Difficulty" value={selectedExercise.difficulty} />
                 </div>
 
                 {/* Description Section */}
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <h4 className="text-zinc-500 font-mono text-[9px] uppercase tracking-[0.3em]">Technical Instructions</h4>
-                  <p className="text-zinc-300 text-sm leading-loose bg-white/5 p-6 rounded-3xl border border-white/5">
+                  <p className="text-zinc-300 text-xs sm:text-sm leading-loose bg-white/5 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/5">
                     {selectedExercise.desc}
                   </p>
                 </div>
 
                 <button 
                   onClick={() => setSelectedExercise(null)}
-                  className="w-full bg-cyan-400 py-4 rounded-2xl text-black font-black uppercase text-xs tracking-widest hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all"
+                  className="w-full bg-cyan-400 py-3.5 rounded-2xl text-black font-black uppercase text-xs tracking-widest hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all mt-2"
                 >
                   Close Briefing
                 </button>
