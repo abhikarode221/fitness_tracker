@@ -9,11 +9,11 @@ export const LogWorkout = () => {
   const [loading, setLoading] = useState(true);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [isNewExModalOpen, setIsNewExModalOpen] = useState(false);
-  
+
   const [sessionData, setSessionData] = useState([]);
   const [currentSets, setCurrentSets] = useState([{ reps: '', weight: '' }]);
   const [newExForm, setNewExForm] = useState({ name: '', muscle: '' });
-  
+
   const currentDate = new Date().toLocaleDateString('en-US');
 
   // --- 📡 Data Synchronization ---
@@ -49,7 +49,7 @@ export const LogWorkout = () => {
     if (newExForm.name && newExForm.muscle) {
       try {
         const token = localStorage.getItem('kinetic_token');
-        const res = await api.post('/api/exercises/add', 
+        const res = await api.post('/api/exercises/add',
           newExForm,
           { headers: { 'x-auth-token': token } }
         );
@@ -64,7 +64,7 @@ export const LogWorkout = () => {
 
   const handleDeleteModule = async (e, exId) => {
     e.stopPropagation(); // Prevents opening the "Log Workout" modal
-    
+
     if (!window.confirm("CONFIRM_DECOMMISSION: PERMANENTLY_REMOVE_MODULE?")) return;
 
     try {
@@ -72,7 +72,7 @@ export const LogWorkout = () => {
       await api.delete(`/api/exercises/${exId}`, {
         headers: { 'x-auth-token': token }
       });
-      
+
       // Update local state to remove the module immediately
       setLibrary(library.filter(ex => ex._id !== exId));
     } catch (err) {
@@ -83,7 +83,7 @@ export const LogWorkout = () => {
   const saveFullSession = async () => {
     try {
       const token = localStorage.getItem('kinetic_token');
-      await api.post('/api/workouts/log', 
+      await api.post('/api/workouts/log',
         { exercises: sessionData },
         { headers: { 'x-auth-token': token } }
       );
@@ -103,7 +103,7 @@ export const LogWorkout = () => {
         <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tighter italic uppercase leading-none">
           Session <span className="text-zinc-500">— {currentDate}</span>
         </h1>
-        <button 
+        <button
           onClick={saveFullSession}
           disabled={sessionData.length === 0}
           className="w-full sm:w-auto flex items-center justify-center gap-3 bg-cyan-400 disabled:bg-zinc-800 disabled:text-zinc-600 text-black font-black px-8 py-3.5 rounded-2xl transition-all uppercase tracking-widest text-[10px]"
@@ -118,7 +118,7 @@ export const LogWorkout = () => {
           <h3 className="font-mono text-[10px] text-cyan-400 uppercase tracking-[0.4em] leading-none">
             Append Exercise Module
           </h3>
-          <button 
+          <button
             onClick={() => setIsNewExModalOpen(true)}
             className="w-full sm:w-auto flex items-center justify-center gap-2 text-zinc-500 hover:text-white font-mono text-[9px] uppercase tracking-widest transition-all border border-white/5 hover:border-white/20 px-4 py-2 rounded-full"
           >
@@ -164,7 +164,7 @@ export const LogWorkout = () => {
           <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setIsNewExModalOpen(false)} className="absolute inset-0 bg-black/95 backdrop-blur-md" />
-            
+
             <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
               className="relative w-full max-w-md bg-zinc-900 border border-white/10 p-6 sm:p-10 rounded-3xl sm:rounded-[3rem] shadow-2xl mx-2 z-10"
             >
@@ -176,23 +176,23 @@ export const LogWorkout = () => {
               <div className="space-y-4 sm:space-y-6">
                 <div className="text-left">
                   <label className="block font-mono text-[9px] text-zinc-500 uppercase mb-2 ml-1">Module Name</label>
-                  <input 
-                    type="text" placeholder="e.g. LAT PULLDOWN" 
+                  <input
+                    type="text" placeholder="e.g. LAT PULLDOWN"
                     className="w-full bg-black border border-white/5 p-4 rounded-2xl text-white outline-none focus:border-cyan-400/40 transition-all text-sm font-bold uppercase"
                     value={newExForm.name}
-                    onChange={(e) => setNewExForm({...newExForm, name: e.target.value})}
+                    onChange={(e) => setNewExForm({ ...newExForm, name: e.target.value })}
                   />
                 </div>
                 <div className="text-left">
                   <label className="block font-mono text-[9px] text-zinc-500 uppercase mb-2 ml-1">Target Muscle</label>
-                  <input 
-                    type="text" placeholder="e.g. BACK" 
+                  <input
+                    type="text" placeholder="e.g. BACK"
                     className="w-full bg-black border border-white/5 p-4 rounded-2xl text-white outline-none focus:border-cyan-400/40 transition-all text-sm font-bold uppercase"
                     value={newExForm.muscle}
-                    onChange={(e) => setNewExForm({...newExForm, muscle: e.target.value})}
+                    onChange={(e) => setNewExForm({ ...newExForm, muscle: e.target.value })}
                   />
                 </div>
-                <button 
+                <button
                   onClick={handleCreateNewModule}
                   className="w-full bg-white text-black font-black py-4 sm:py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px]"
                 >
@@ -210,7 +210,7 @@ export const LogWorkout = () => {
           <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setSelectedExercise(null)} className="absolute inset-0 bg-black/90 backdrop-blur-md" />
-            
+
             <motion.div initial={{ scale: 0.95, opacity: 0, y: 30 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 30 }}
               className="relative w-full max-w-lg bg-zinc-900 border border-white/10 p-6 sm:p-10 rounded-3xl sm:rounded-[3rem] shadow-2xl mx-2 z-10"
             >
@@ -226,14 +226,14 @@ export const LogWorkout = () => {
                 {currentSets.map((set, idx) => (
                   <div key={idx} className="flex items-center gap-2 sm:gap-4 group">
                     <span className="font-mono text-zinc-700 text-[10px] w-6 sm:w-8 italic shrink-0">S.{idx + 1}</span>
-                    <input 
-                      type="number" placeholder="KG" 
+                    <input
+                      type="number" placeholder="KG"
                       className="w-full bg-black/40 border border-white/5 p-3 sm:p-4 rounded-2xl text-white outline-none focus:border-cyan-400/40 transition-all text-xs sm:text-sm font-bold"
                       value={set.weight}
                       onChange={(e) => { const n = [...currentSets]; n[idx].weight = e.target.value; setCurrentSets(n); }}
                     />
-                    <input 
-                      type="number" placeholder="REPS" 
+                    <input
+                      type="number" placeholder="REPS"
                       className="w-full bg-black/40 border border-white/5 p-3 sm:p-4 rounded-2xl text-white outline-none focus:border-cyan-400/40 transition-all text-xs sm:text-sm font-bold"
                       value={set.reps}
                       onChange={(e) => { const n = [...currentSets]; n[idx].reps = e.target.value; setCurrentSets(n); }}

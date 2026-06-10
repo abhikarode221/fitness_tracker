@@ -11,8 +11,8 @@ import { History } from './views/History';
 import { Settings } from './views/Settings';
 import { Register } from './views/Register';
 import { Login } from './views/Login';
-import { AICoach } from './views/AICoach'; 
-import {Library} from "./views/Library";
+import { AICoach } from './views/AICoach';
+import { Library } from "./views/Library";
 import { Nutrition } from './views/Nutrition';
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
               </div>
               <span className="text-xl font-black tracking-tighter italic text-white uppercase">Kinetic</span>
             </div>
-            <button 
+            <button
               onClick={() => setSidebarOpen(true)}
               className="p-2 text-zinc-400 hover:text-white transition-colors"
               title="Open Navigation"
@@ -65,7 +65,7 @@ function App() {
               <Route path="/log" element={<LogWorkout />} />
               <Route path="/history" element={<History />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/ai-coach" element={<AICoach />} /> 
+              <Route path="/ai-coach" element={<AICoach />} />
               <Route path="/library" element={<Library />} />
               <Route path="/nutrition" element={<Nutrition />} />
             </Route>

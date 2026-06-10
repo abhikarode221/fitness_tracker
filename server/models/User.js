@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
-    required: true 
+  name: {
+    type: String,
+    required: true
   },
 
-  email: { 
-    type: String, 
-    required: true, 
-    unique: true 
+  email: {
+    type: String,
+    required: true,
+    unique: true
   },
 
-  password: { 
-    type: String, 
-    required: true 
+  password: {
+    type: String,
+    required: true
   },
 
   profile: {
@@ -23,26 +23,26 @@ const UserSchema = new mongoose.Schema({
     targetWeight: Number,
 
     // Added calorie goal
-    calorieGoal: { 
-      type: Number, 
-      default: 2500 
+    calorieGoal: {
+      type: Number,
+      default: 2500
     },
 
     // Added macros object
     macros: {
-      protein: { 
-        type: Number, 
-        default: 150 
+      protein: {
+        type: Number,
+        default: 150
       },
 
-      carbs: { 
-        type: Number, 
-        default: 250 
+      carbs: {
+        type: Number,
+        default: 250
       },
 
-      fats: { 
-        type: Number, 
-        default: 70 
+      fats: {
+        type: Number,
+        default: 70
       }
     }
   },
@@ -50,9 +50,9 @@ const UserSchema = new mongoose.Schema({
   weightHistory: [
     {
       weight: Number,
-      date: { 
-        type: Date, 
-        default: Date.now 
+      date: {
+        type: Date,
+        default: Date.now
       }
     }
   ]

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import api from '../api/axiosConfig';
-import { 
+import {
   LayoutDashboard, Dumbbell, History, Library, Utensils,
   Sparkles, Settings, LogOut, X
 } from 'lucide-react';
@@ -37,14 +37,14 @@ export const Sidebar = ({ isOpen, setIsOpen }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("kinetic_token");
-    window.location.href = "/login"; 
+    window.location.href = "/login";
   };
 
   return (
     <>
       {/* Backdrop overlay for mobile drawer */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
           onClick={() => setIsOpen(false)}
         />
@@ -59,7 +59,7 @@ export const Sidebar = ({ isOpen, setIsOpen }) => {
             </div>
             <span className="text-2xl font-black tracking-tighter italic text-white uppercase">Kinetic</span>
           </div>
-          <button 
+          <button
             onClick={() => setIsOpen(false)}
             className="md:hidden p-2 text-zinc-500 hover:text-white transition-colors"
             title="Close Menu"
@@ -94,8 +94,8 @@ export const Sidebar = ({ isOpen, setIsOpen }) => {
               <p className="text-zinc-600 text-[10px] font-mono uppercase tracking-widest">Pro Member</p>
             </div>
           </div>
-          
-          <button 
+
+          <button
             onClick={handleLogout}
             className="p-2 text-zinc-600 hover:text-red-400 hover:bg-red-400/10 rounded-xl transition-all"
             title="Terminate Session"
@@ -109,8 +109,8 @@ export const Sidebar = ({ isOpen, setIsOpen }) => {
 };
 
 const NavItem = ({ to, icon, label, onClick }) => (
-  <NavLink 
-    to={to} 
+  <NavLink
+    to={to}
     onClick={onClick}
     className={({ isActive }) => `
       flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 group
