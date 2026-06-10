@@ -76,7 +76,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { id: user._id },
-      "kinetic_access_key_2026_abhishek",
+      process.env.JWT_SECRET || "kinetic_access_key_2026_abhishek",
       { expiresIn: "1d" }
     );
 

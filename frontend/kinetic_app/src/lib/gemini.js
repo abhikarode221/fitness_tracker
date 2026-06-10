@@ -1,8 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Ensure your VITE_GEMINI_KEY is set in your .env file
-// const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_KEY);
-const genAI = new GoogleGenerativeAI("AIzaSyA1SspV3A_BeKeCBaUPTG2xge2VzhJG_s0");
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_KEY);
+
 
 export const getCoachInsights = async (history, profile) => {
   try {
